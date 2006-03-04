@@ -68,7 +68,9 @@ int main(int argc, char** argv)
 			Script::executeScriptFromFile(argv[i]);
 		}
 	} else {
+#ifndef NO_GUI
 		start_gtk_main();
+#endif
 	}
 	
 	deinit_all();
