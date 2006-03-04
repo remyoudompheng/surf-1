@@ -85,7 +85,7 @@ AC_DEFUN([RS_CHECK_POW],
 		[#include <math.h>
 		int main() { if (pow(0.0,0.0)==1.0) return 0; else return 10;}],
                 POW_IS_BROKEN=no, POW_IS_BROKEN=yes, POW_IS_BROKEN=yes)
-	AC_MSG_RESULT("$POW_IS_BROKEN")
+	AC_MSG_RESULT([$POW_IS_BROKEN])
 	test "$POW_IS_BROKEN" = "yes" &&
 		AC_DEFINE(POW_IS_BROKEN)
 ])
