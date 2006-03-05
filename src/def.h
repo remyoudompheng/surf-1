@@ -77,10 +77,17 @@
 
 
 enum {red,green,blue}; 					/* sk */
+#ifdef MIN
+#undef MIN
+#endif
 
 #define MIN(a,b)	( ((a)<(b))?(a):(b) )
 #ifndef min
 #define min(a,b)	( ((a)<(b))?(a):(b) )
+#endif
+
+#ifdef MAX
+#undef MAX
 #endif
 
 #define MAX(a,b)	( ((a)<(b))?(b):(a) )

@@ -148,9 +148,6 @@ void RgbBuffer::Realloc( int w, int h )
 // ----------------------------------------------------------------------------
 RgbBuffer& RgbBuffer::operator=( byte f )
 {
-	if (f>255)
-		f=255;
-
 	int i;
 	for( i=0; i<n; i++ ) {
 		r[i]    = f;
