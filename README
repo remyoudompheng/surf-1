@@ -3,10 +3,10 @@
 
 				  surf
 
-			     Version 1.0.3
+			     Version 1.0.5
 
 	Copyright (C) 1996-1997 Friedrich-Alexander-Universitaet
-  Erlangen-Nuernberg, 1997-2000 Johannes Gutenberg-Universitaet Mainz
+  Erlangen-Nuernberg, 1997-2006 Johannes Gutenberg-Universitaet Mainz
 
   Authors: Stephan Endrass, Hans Huelf, Ruediger Oertel, Ralf Schmitt,
 	  Kai Schneider and Johannes Beigel (see AUTHORS file)
@@ -33,7 +33,7 @@ Basic Installation:
 
 (see INSTALL for a more complete description)
 
-   $ cd surf-1.0.3
+   $ cd surf-1.0.5
    $ ./configure
    [ wait.. ]
    $ make
