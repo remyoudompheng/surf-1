@@ -24,7 +24,7 @@
 
 
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 
 #include "RootFinder2d.h"
 #include "degree.h"
@@ -32,7 +32,7 @@
 
 // #define DEBUG
 #include "debug.h"
-
+using namespace std;
 
 
 RootFinder2d::RootFinder2d() : poly(0)

@@ -23,7 +23,7 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 
 #include <gdk/gdkx.h>
 
@@ -40,6 +40,7 @@
 #include "RGBToNetscape.h"
 #include "ColorWindow.h"
 
+using namespace std;
 
 extern XStandardColormap *xstandardColormap;
 

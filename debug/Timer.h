@@ -27,7 +27,7 @@
 #define TIMER_H
 
 #include <time.h>
-#include <iostream.h>
+#include <iostream>
 
 #define TIMER(s) Timer aTimer(s)
 class Timer
@@ -40,8 +40,8 @@ public:
 		{
 			clock_t end = clock();
 			if (name) {
-				cout << "Time spend in " << name << ":" << end-start << "=" 
-				     << (float)(end-start) / CLOCKS_PER_SEC << " s" << endl;
+				std::cout << "Time spend in " << name << ":" << end-start << "=" 
+				     << (float)(end-start) / CLOCKS_PER_SEC << " s" << std::endl;
 			} else if (aClock) {
 				*aClock += end-start;
 			}

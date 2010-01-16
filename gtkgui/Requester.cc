@@ -24,7 +24,7 @@
 
 
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 #include <strstream>
 
 #include <gtk/gtk.h>
@@ -32,6 +32,7 @@
 #include "GuiThread.h"
 #include "Requester.h"
 
+using namespace std;
 
 static GtkWidget *alertWidget = 0;
 static int choice;

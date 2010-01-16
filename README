@@ -3,13 +3,22 @@
 
 				  surf
 
-			     Version 1.0.5
+			     Version 1.0.6
 
 	Copyright (C) 1996-1997 Friedrich-Alexander-Universitaet
   Erlangen-Nuernberg, 1997-2006 Johannes Gutenberg-Universitaet Mainz
 
   Authors: Stephan Endrass, Hans Huelf, Ruediger Oertel, Ralf Schmitt,
 	  Kai Schneider and Johannes Beigel (see AUTHORS file)
+
+
+  Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+		 zur Darstellung reell-algebraischer Kurven und Flaechen'
+  from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+
+  Project supervisor: Erich Selder
+  Authors: Karen Gharslyan, Stephan Haasmann, Jonas Heil, Igor Krmcar,
+	   Bingbing Li, Marcus Scherer, Sven Sperner, Suepriz Yaykan 
 
 -------------------------------------------------------------------------
 
@@ -28,13 +37,54 @@ Visit surf's homepage for more information:
 		      http://surf.sourceforge.net
 
 
+Required dependencys:
+---------------------
+    GNU gcc/g++ version 2.7.x or higher
+    make
+    cups
+    GNU flex Version 2.5 or higher
+    GTK+ Version 1.2.0 or higher (only if GUI is needed)
+    POSIX Threads ( glibc2 on Linux)
+    GNU MP(gmp) Version 2 or higher
+    lib-tiff
+    lib-jpeg
+    zlib
+    ps2pdf
+    linux-kernel-header (on Suse Linux 11.x)
+    lib-xmu
+
+
+Tested on:
+-------------
+   openSUSE 11.x
+   (k)ubuntu 9.x
+   Debian 5.0
+   Archlinux 
+   Gentoo
+
+
 Basic Installation:
 -------------------
 
 (see INSTALL for a more complete description)
 
-   $ cd surf-1.0.5
+   $ cd surf-1.0.6
    $ ./configure
+   [ wait.. ]
+   $ make
+   [ ..wait even longer.. ]
+   $ su
+   [ enter root's password ]
+   # make install
+   # logout
+
+Installation without CUPS-Support:
+----------------------------------
+
+(see INSTALL for a more complete description)
+
+   $ cd surf-1.0.6
+   $ ./configure --disable-cups
    [ wait.. ]
    $ make
    [ ..wait even longer.. ]

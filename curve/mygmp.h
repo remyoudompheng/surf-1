@@ -32,11 +32,11 @@
 #include <gmp.h>
 #endif
 
-#include <iostream.h>
+#include <iostream>
 
 extern void mpz_lcm (mpz_t lcm, mpz_t op1, mpz_t op2);
-extern ostream & operator << (ostream &os, mpz_t z);
-extern ostream & operator << (ostream &os, mpq_t q);
+extern std::ostream & operator << (std::ostream &os, mpz_t z);
+extern std::ostream & operator << (std::ostream &os, mpq_t q);
 
 extern void mpz_pow (mpz_t result, mpz_t z, int n);
 

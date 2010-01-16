@@ -28,7 +28,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <iostream.h>
+#include <iostream>
 
 #include "doubleMath.h"
 
@@ -61,7 +61,7 @@ public:
 			return i==num ? 0 : exponent[i]-m.exponent[i];
 		};
 
-	void print(ostream &os) const 
+	void print(std::ostream &os) const 
 		{
 			static const char vars[]="xyzabcdefg";
 			os << "(" << coeff << ")";
@@ -94,7 +94,7 @@ protected:
 };
 
 template<class Coeff,  int num> 
-ostream & operator<<(ostream &os, const CMonom<Coeff,num> &m)
+std::ostream & operator<<(std::ostream &os, const CMonom<Coeff,num> &m)
 {
 	m.print(os);
  	return os;

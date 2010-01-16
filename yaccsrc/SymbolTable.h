@@ -28,7 +28,7 @@
 
 #include <stdlib.h>
 
-#include <iostream.h>
+#include <iostream>
 #include <stdio.h>
 
 class SymbolTable
@@ -42,7 +42,7 @@ public:
 		{
 			const char *str = lookup (key);
 			if (str == 0) {
-				cerr << __FILE__ << " " << __LINE__ << " WARNING: lookup of " << key << " failed." << endl;
+				std::cerr << __FILE__ << " " << __LINE__ << " WARNING: lookup of " << key << " failed." << std::endl;
 				return 0;
 			}
 			else return atoi (str);
@@ -51,7 +51,7 @@ public:
 		{
 			const char *str = lookup (key);
 			if (str == 0) {
-				cerr << "lookup of " << key << " failed." << endl;
+				std::cerr << "lookup of " << key << " failed." << std::endl;
 				return 0.0;
 			}
 			else return atof (str);
@@ -74,7 +74,7 @@ public:
 			insert(key, str);
 		}
 
-	friend ostream & operator << (ostream &os, const SymbolTable &);
+	friend std::ostream & operator << (std::ostream &os, const SymbolTable &);
 
 private:
 	class Node 
@@ -89,9 +89,9 @@ private:
 		~Node();
 		void setValue (const char *val);
 		
-		void print (ostream &os)
+		void print (std::ostream &os)
 			{
-				os << key << "=" << value << ";" << endl;
+				os << key << "=" << value << ";" << std::endl;
 				if (left)
 					left->print(os);
 				if (right)

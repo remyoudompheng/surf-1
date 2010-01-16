@@ -24,11 +24,12 @@
 
 
 #include <string.h>
-#include <iostream.h>
+#include <iostream>
 #include "ClipWindow.h"
 #include "RadioButtonBuilder.h"
 #include "OptionMenuBuilder.h"
 #include "TableBuilder.h"
+using namespace std;
 
 void ClipWindow::toggled_clip_method( GtkWidget *w,gpointer data )
 {

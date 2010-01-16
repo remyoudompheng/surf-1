@@ -32,9 +32,22 @@
 // Date:     3.2.95
 // ============================================================================
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color eps 
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 #ifndef EPS_H
 #define EPS_H
 
 extern bool epsprint (class bit_buffer &pixel, FILE *epsfile, int resolution);
+
+extern bool epsprint_color (class RgbBuffer &pixel, FILE *epsfile, int resolution);
 
 #endif  /* EPS_H */

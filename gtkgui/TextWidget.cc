@@ -22,6 +22,18 @@
  *
  */
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Sven Sperner
+ Changes: Support for Mouse-Scrolling in Script-Window
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
+
 
 #include "TextWidget.h"
 
@@ -46,6 +58,9 @@ TextWidget::TextWidget()
 	gtk_container_set_border_width(GTK_CONTAINER(hbox),5);
 	gtk_container_add (GTK_CONTAINER(frame), hbox);
 	gtk_widget_set_usize(frame, 450,300);
+
+	gtk_widget_set_events(text, GDK_BUTTON4_MASK | GDK_BUTTON5_MASK);
+	gtk_signal_connect(GTK_OBJECT(text), "button_press_event", GTK_SIGNAL_FUNC(handle_scroll_event), this);
 }
 
 void TextWidget::setContents (const char *contents)
@@ -56,3 +71,14 @@ void TextWidget::setContents (const char *contents)
 	gtk_text_insert(GTK_TEXT(text),0,0,0,contents,-1);
 	gtk_text_thaw(GTK_TEXT(text));
 }
+
+void TextWidget::handle_scroll_event( GtkWidget *widget, GdkEventButton *event, gpointer data )
+{
+	if( event->button == 5 )
+		GTK_TEXT(widget)->vadj->value += 10;
+	else if( event->button == 4 )
+		if(GTK_TEXT(widget)->vadj->value >= 1)
+			GTK_TEXT(widget)->vadj->value -= 10;
+	gtk_adjustment_value_changed(GTK_TEXT(widget)->vadj);
+}
+

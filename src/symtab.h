@@ -22,6 +22,17 @@
  *
  */
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps,eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 #ifndef SYMTAB_H
 #define SYMTAB_H
@@ -45,8 +56,9 @@ extern  const int     color_output_xwd_data;  // "xwd"
 extern  const int     color_output_sun_data;  // "sun"
 extern  const int     color_output_ppm_data;  // "ppm"
 extern  const int     color_output_jpeg_data; // "jpg"
-
-
+extern  const int     color_output_postscript_data; // "ps"
+extern	const int	  color_output_encapsulatedpostscript_data; // "eps"
+extern	const int	  color_output_pdf_data; // "pdf"
 
 
 //
@@ -71,4 +83,5 @@ extern  const int     print_output_bitmap_data;
 extern  const int     print_output_tiff_data;
 extern  const int     print_output_pgm_data;
 extern  const int     print_output_pbm_data;
+extern  const int	  print_output_pdf_data;
 #endif

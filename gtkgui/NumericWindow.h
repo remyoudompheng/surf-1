@@ -26,7 +26,7 @@
 #ifndef NUMERICWINDOW_H
 #define NUMERICWINDOW_H
 
-#include <iostream.h>
+#include <iostream>
 #include <gtk/gtk.h>
 #include "mygtk.h"
 

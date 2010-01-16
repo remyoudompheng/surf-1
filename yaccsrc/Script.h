@@ -26,7 +26,6 @@
 #ifndef SCRIPT_H
 #define SCRIPT_H
 
-
 class TSDrawingArea;
 class RgbBuffer;
 class bit_buffer;

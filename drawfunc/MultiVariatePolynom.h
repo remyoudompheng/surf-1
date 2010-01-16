@@ -28,7 +28,7 @@
 #ifndef CLMULTIPOLY_H
 #define CLMULTIPOLY_H
 
-#include <iostream.h>
+#include <iostream>
 
 #define  VARIABLE_X         0
 #define  VARIABLE_Y         1
@@ -173,7 +173,7 @@ public:
 	      
 	void      Sort( const int );
 	void      Shift(double,double,double);
-	void      Print (ostream &os) const;
+	void      Print (std::ostream &os) const;
 
 	int       Check(void) const;
 	void      Collect(void);
@@ -191,7 +191,7 @@ public:
 };
 
 template<class Mon>
-inline ostream &operator<< (ostream &os, const MultiPoly<Mon> &m)
+inline std::ostream &operator<< (std::ostream &os, const MultiPoly<Mon> &m)
 {
 	m.Print(os);
 	return os;

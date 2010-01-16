@@ -23,7 +23,7 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 
 #include "NewClip.h"
 #include "NewClipSphereParallel.h"
@@ -37,6 +37,7 @@
 #include "NewClipAlgebraicCyl.h"
 #include "NewClipAlgebraicUser.h"
 #include "NewClipNone.h"
+using namespace std;
 
 NewClip* NewClip::createSimpleClip (int perspective, int clipmodus)
 {

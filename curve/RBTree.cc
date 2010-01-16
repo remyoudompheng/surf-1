@@ -23,7 +23,7 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 #include <assert.h>
 
 #include "RBTree.h"
@@ -31,6 +31,8 @@
 
 #define RED   RBNode::RED
 #define BLACK RBNode::BLACK
+
+using namespace std;
 
 RBNode RBNode::sentinel(1); //; = {NIL,NIL,0,RBNode::BLACK};
 

@@ -26,7 +26,7 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <iostream.h>
+#include <iostream>
 
 class FunctionCall
 {
@@ -43,7 +43,7 @@ protected:
 
 
 extern void spaces();
-extern ostream &dos;
+extern std::ostream &dos;
 extern int offlevel;
 #endif
 

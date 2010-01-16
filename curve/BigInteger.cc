@@ -24,6 +24,7 @@
 
 
 #include "BigInteger.h"
+using namespace std;
 
 BigInteger::BigInteger()
 {

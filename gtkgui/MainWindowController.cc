@@ -22,6 +22,17 @@
  *
  */
 
+/**************************************************************************
+    Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+		 zur Darstellung reell-algebraischer Kurven und Flächen'
+    from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+
+    Authors: Stephan Haasmann, Sven Sperner
+    Changes: enable support for Printing via CUPS
+    Date: Wintersemester 2009/2010
+    Last changed: 2010/01/14
+
+**************************************************************************/
 
 #include <assert.h>
 #include <pthread.h>
@@ -48,6 +59,7 @@
 #include "RadioButtonBuilder.h"
 #include "Options.h"
 
+using namespace std;
 
 static void scriptExecuted (ExecuteScriptStruct *ess)
 {
@@ -405,6 +417,73 @@ void MainWindowController::saveImageDialogCancel()
 	saveImageDialog.hide();
 }
 
+#if defined(HAVE_LIBCUPS)
+/*
+ * open Printdialog for Color-Image
+ */
+void MainWindowController::printColorImage()
+{
+	printImageDialog.show(PrintImageDialog::color);
+}
+
+/*
+ * open Printdialog for Dithered-Image
+ */
+void MainWindowController::printDitheredImage()
+{
+	printImageDialog.show(PrintImageDialog::dithered);
+}
+
+/*
+ * Print a Color/Dithered-Image via CUPS
+ */
+void MainWindowController::printImageDialogOkay()
+{
+	printImageDialog.hide();
+	internalExecuteScript(0, printImageDialog.generateScript(), 0, true);
+
+	numMyPrinters = cupsGetDests(&myPrinters);
+	char* printerName = printImageDialog.getUsed();
+	if( (strcmp(printerName, "none") != 0) )
+	{
+		myPrinter = cupsGetDest(printerName, NULL, numMyPrinters, myPrinters);
+		cups_option_t* pOptions = myPrinter->options;
+		int numOptions = myPrinter->num_options;
+
+		char scale[5];
+		sprintf(scale, "%d", (int)printImageDialog.getScaleValue());
+		if( printImageDialog.getScaling() ) {
+			numOptions = cupsAddOption((char*)"scaling", scale, numOptions, &pOptions);
+		} else {
+			numOptions = cupsAddOption((char*)"natural-scaling", scale, numOptions, &pOptions);
+		}
+
+		char pages[5];
+		sprintf(pages, "%d", (int)printImageDialog.getPagesValue());
+		numOptions = cupsAddOption((char*)"copies", pages, numOptions, &pOptions);
+
+		if( printImageDialog.getFormat() == 0 ) {
+			numOptions = cupsAddOption((char*)"landscape", (char*)"1", numOptions, &pOptions);
+		}
+
+		usleep(200000);
+		char filename[25];
+		time_t now = time ( NULL );
+		struct tm *date = localtime ( &now );
+		sprintf(filename, "surf_%d%d%d-%d%d%d", date->tm_mday, date->tm_mon + 1, date->tm_year + 1900, date->tm_hour, date->tm_min, date->tm_sec ); 
+		cupsPrintFile(myPrinter->name, surface_filename_data, filename, numOptions, pOptions);
+	}
+}
+
+/*
+ * cancel Printing via CUPS
+ */
+void MainWindowController::printImageDialogCancel()
+{
+	printImageDialog.hide();
+}
+#endif
+
 // struct _GtkItemFactoryEntry
 // {
 //   gchar *path;
@@ -447,6 +526,12 @@ MainWindowController::MainWindowController()
 		{(gchar*)"/File/_Open...", (gchar*)"<control>O",   MENUCALL(loadScript), 0, 0},
 		{(gchar*)"/File/Loaded Scripts", 0,                0, 0, (gchar *)"<Branch>"},
 		{(gchar*)"/File/Loaded Scripts/tearoff", 0,        0, 0, (gchar *)"<Tearoff>"},
+#if defined(HAVE_LIBCUPS)
+//Menuentrys for Printing
+		{(gchar*)"/File/Separator0", 0,                    0, 0, (gchar *)"<Separator>"},
+		{(gchar*)"/File/_Print ColorImage", (gchar*)"<control>P",     MENUCALL(printColorImage), 0, 0},
+		{(gchar*)"/File/_Print DitheredImage", (gchar*)"<control>D",     MENUCALL(printDitheredImage), 0, 0},
+#endif
 		{(gchar*)"/File/Separator1", 0,                    0, 0, (gchar *)"<Separator>"},
 		{(gchar*)"/File/_Save", (gchar*)"<control>S",      MENUCALL(saveScript), 0, 0},
 		{(gchar*)"/File/Save _As...", (gchar*)"<control>A", MENUCALL(saveScriptAs), 0, 0},
@@ -516,7 +601,11 @@ MainWindowController::MainWindowController()
 	VOIDCONNECT(saveImageDialog.getGtkFileSelection()->ok_button, "clicked", saveImageDialogOkay);
 	VOIDCONNECT(saveImageDialog.getGtkFileSelection()->cancel_button, "clicked", saveImageDialogCancel);
 
-	
+#if defined(HAVE_LIBCUPS)
+//Signalconnections for Printing
+	VOIDCONNECT(printImageDialog.getOkButton(), "clicked", printImageDialogOkay);
+	VOIDCONNECT(printImageDialog.getCancelButton(), "clicked", printImageDialogCancel);
+#endif
 
 	buttons = gtk_vbox_new (FALSE, 5);
 	gtk_container_border_width(GTK_CONTAINER(buttons), 5);
@@ -524,73 +613,58 @@ MainWindowController::MainWindowController()
 
 	GtkWidget *tmpbutton;
 
-	tmpbutton = addCommandButton ("configuration...",
-				      "Opens the configuration window, where you can adjust a lot of parameters.");
+	tmpbutton = addCommandButton ("configuration...", "Opens the configuration window, where you can adjust a lot of parameters.");
 	VOIDCONNECT(tmpbutton, "clicked", configuration);
-	
-
 	
 	addCommandSeparator();
 
-	tmpbutton = addCommandButton ("execute script",
-				      "Parses script and runs all commands.");
+	tmpbutton = addCommandButton ("execute script", "Parses script and runs all commands.");
 	VOIDCONNECT(tmpbutton, "clicked", executeScript);
 	executeScriptButton = tmpbutton;
 	
-	tmpbutton = addCommandButton ("draw surface", 
-				      "Parses script without running any commands,then calls draw_surface. You must set the surface polynom.");
+	tmpbutton = addCommandButton ("draw surface", "Parses script without running any commands,then calls draw_surface. You must set the surface polynom.");
 	VOIDCONNECT(tmpbutton, "clicked", drawSurface);
 	drawSurfaceButton = tmpbutton;
 
-	tmpbutton = addCommandButton ("dither surface", 
-				      "Parses script without running any commands,then calls dither_surface. You have to draw a surface first.");
+	tmpbutton = addCommandButton ("dither surface", "Parses script without running any commands,then calls dither_surface. You have to draw a surface first.");
 	VOIDCONNECT (tmpbutton, "clicked", ditherSurface);
 	ditherSurfaceButton = tmpbutton;
 
-	tmpbutton = addCommandButton ("draw curve",
-				      "Parses script without running any commands,then calls draw_curve. You must set the curve polynom.");
+	tmpbutton = addCommandButton ("draw curve", "Parses script without running any commands,then calls draw_curve. You must set the curve polynom.");
 	VOIDCONNECT (tmpbutton, "clicked", drawCurve);
 	drawCurveButton = tmpbutton;
 
-	tmpbutton = addCommandButton ("dither curve",
-				      "Parses script without running any commands, then calls dither_curve.");
+	tmpbutton = addCommandButton ("dither curve", "Parses script without running any commands, then calls dither_curve.");
 	VOIDCONNECT (tmpbutton, "clicked", ditherCurve);
 	ditherCurveButton = tmpbutton;
 
 	addCommandSeparator();
 
-	tmpbutton = addCommandButton ("save color image",
-				      "saves the image in the current color window");
+	tmpbutton = addCommandButton ("save color image", "saves the image in the current color window");
   	VOIDCONNECT(tmpbutton, "clicked", saveColorImage);
 	gtk_widget_set_sensitive(tmpbutton, false);
 	colorSaveButton = tmpbutton;
 
-	tmpbutton = addCommandButton ("save dithered image",
-				      "saves the image in the current dither window");
+	tmpbutton = addCommandButton ("save dithered image", "saves the image in the current dither window");
   	VOIDCONNECT(tmpbutton, "clicked", saveDitheredImage);
 	gtk_widget_set_sensitive(tmpbutton, false);
 	ditheredSaveButton = tmpbutton;
 
 	addCommandSeparator();
 
-	tmpbutton = addCommandButton ("new color window",
-				      "Opens a new color window. The new window will be used the next time you draw something.");
+	tmpbutton = addCommandButton ("new color window", "Opens a new color window. The new window will be used the next time you draw something.");
 	VOIDCONNECT(tmpbutton, "clicked", newColorWindow);
 
-	tmpbutton = addCommandButton ("new dither window",
-				      "Opens a new dither window. The new window will be used the next time you dither something.");
+	tmpbutton = addCommandButton ("new dither window", "Opens a new dither window. The new window will be used the next time you dither something.");
 	VOIDCONNECT(tmpbutton, "clicked", newDitherWindow);
 
 	addCommandSeparator();
 
-	tmpbutton = addCommandButton ("load script...",
-				      "Open a file selection dialog and load a script. This will not close your current script.");
+	tmpbutton = addCommandButton ("load script...", "Open a file selection dialog and load a script. This will not close your current script.");
 	VOIDCONNECT(tmpbutton, "clicked", loadScript);
 
-	tmpbutton = addCommandButton ("save script",
-				      "Saves the current script. To save under a different name, choose the \"Script/Save as\" menu item.");
+	tmpbutton = addCommandButton ("save script", "Saves the current script. To save under a different name, choose the \"Script/Save as\" menu item.");
 	VOIDCONNECT(tmpbutton, "clicked", saveScript);
-
 
 
 	frame = gtk_frame_new ("Command");
@@ -601,13 +675,9 @@ MainWindowController::MainWindowController()
 	gtk_box_pack_start (GTK_BOX(mainBox), tw.getContainer(), TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX(mainBox), frame, FALSE, FALSE, 0);
 
-	
 
 	gtk_window_set_title (GTK_WINDOW(window), PACKAGE " " VERSION);
 	VOIDCONNECT(window, "destroy", destroy);
-
-
-	
 
 	
 	GtkWidget *preview = gtk_hbox_new (TRUE, 5);
@@ -618,8 +688,6 @@ MainWindowController::MainWindowController()
 //  	rbb.addButton ("3x3",0);
 //  	rbb.addButton ("9x9",0);
 //  	rbb.addButton ("27x27",0);
-
-
 
 	previewButtons[0] = gtk_toggle_button_new_with_label ("3x3");
 	previewButtons[1] = gtk_toggle_button_new_with_label ("9x9");
@@ -662,17 +730,12 @@ MainWindowController::MainWindowController()
 	}
 	gtk_box_pack_start(GTK_BOX(previewContainer), sizeContainer, FALSE, FALSE, 0);
 
-
-	
-
-
 	gtk_container_border_width(GTK_CONTAINER(mainBox), 5);
 
 	gtk_container_add (GTK_CONTAINER(window), dummy);
 
 //   	bitmapWindow->show();
 //   	colorWindow->show();
-
 
 	editDocument(Document::newUnnamed());
 
@@ -702,7 +765,6 @@ void MainWindowController::previewToggled(GtkWidget *widget, gpointer data)
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(mwc->previewButtons[i]), FALSE);
 		}
 	}
-	
 }
 
 void MainWindowController::enableSaveButton(SaveButtonType which)

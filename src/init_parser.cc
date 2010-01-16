@@ -22,15 +22,24 @@
  *
  */
 
-
-
-
 // ===========================================================================
 // File:     init_parser.cc
 // Author:   Stephan Endrass
 // Address:  endrass@mi.uni-erlangen.de
 // Date:     3.2.95
 // ============================================================================
+
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps,eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 #include <stdio.h>
 #include <string.h>
@@ -447,6 +456,7 @@ void    init_surface_main_variables( void )
 	addNumber("gamma", &print_gamma_data);
 	addNumber("gamma_correction", &print_gamma_correction_data);
 	addNumber("resolution", &print_resolution_data);
+	addNumber("color_resolution", &print_color_resolution_data);
 	addConstant("res_75dpi", &print_resolution_75dpi_data);
 	addConstant("res_100dpi", &print_resolution_100dpi_data);
 	addConstant("res_150dpi", &print_resolution_150dpi_data);
@@ -460,6 +470,10 @@ void    init_surface_main_variables( void )
 	addConstant("sun", &color_output_sun_data);
 	addConstant("ppm", &color_output_ppm_data);
 	addConstant("jpg", &color_output_jpeg_data);
+	addConstant("postscript_color", &color_output_postscript_data);
+	addConstant("encapsulatedpostscript_color", &color_output_encapsulatedpostscript_data);
+	addConstant("pdf", &print_output_pdf_data);
+	addConstant("pdf_color", &color_output_pdf_data);
 
 	addNumber("color_file_colormap", &colormap_output_data);
 	addConstant("Netscape", &colormap_output_netscape_data);

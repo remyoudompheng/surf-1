@@ -24,14 +24,14 @@
 
 
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 #include <math.h>
 
 #include "degree.h"
 #include "RootFinder3d.h"
 #include "RootFinder2d.h"
 #include "resultant.h"
-
+using namespace std;
 
 RootFinder3d::RootFinder3d()
 {

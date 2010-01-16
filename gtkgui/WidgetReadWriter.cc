@@ -31,6 +31,7 @@
 
 // #define DEBUG
 #include "debug.h"
+using namespace std;
 
 // ------------------------------------------
 //  write symbol to symtab from GUI

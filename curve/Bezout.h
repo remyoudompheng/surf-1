@@ -26,7 +26,7 @@
 #ifndef Bezout_h
 #define Bezout_h
 
-#include <iostream.h>
+#include <iostream>
 
 #include "TreePolynom.h"
 #include "Monom.h"

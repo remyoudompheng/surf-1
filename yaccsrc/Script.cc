@@ -22,17 +22,27 @@
  *
  */
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Fl√§chen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil, Sven Sperner
+ Changes: add support for saving color ps,eps and pdf. add support for saving b/w pdf. add support for automatic file extensions.
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
+
 
 #include <assert.h>
 #include <stdio.h>
 #include <errno.h>
 
-#include <iostream.h>
+#include <iostream>
 
 #include <sys/stat.h>
 #include <unistd.h>
-
-
 
 #include "FileWriter.h"
 #include "TreePolynom.h"
@@ -68,6 +78,7 @@
 // #define DEBUG
 #include "debug.h"
 
+using namespace std;
 
 TSDrawingArea	*Script::display	= 0;
 RgbBuffer	*Script::buffer		= 0;
@@ -252,7 +263,7 @@ char *Script::readFile (const char *name)
 	struct stat buf;
 	if (stat(name, &buf) != 0) {
 		ostrstream ostr;
-		ostr << "Can¥t stat file ¥" << name << "¥" << " (" << strerror(errno) << ")" << ends;
+		ostr << "Cant stat file " << name << "" << " (" << strerror(errno) << ")" << ends;
 		Misc::alert (ostr);
 		return 0;
 	}
@@ -261,7 +272,7 @@ char *Script::readFile (const char *name)
 	FILE *f=fopen(name, "r");
 	if (f==0) {
 		ostrstream ostr;
-		ostr << "Can¥t open file ¥" << name << "¥" << " (" << strerror(errno) << ")";
+		ostr << "Cant open file " << name << "" << " (" << strerror(errno) << ")";
 		Misc::alert (ostr);
 		return 0;
 	}
@@ -269,7 +280,7 @@ char *Script::readFile (const char *name)
 	char *str = new char [size+1];
 	if (fread(str, 1, size, f) != size) {
 		ostrstream ostr;
-		ostr << "Could not read from file ¥" << name << "¥" << " (" << strerror(errno) << ")";
+		ostr << "Could not read from file " << name << "" << " (" << strerror(errno) << ")";
 		Misc::alert(ostr);
 		delete str;
 		fclose(f);
@@ -329,7 +340,6 @@ void Script::addNewCommands()
 	replaceCommand("set_size", setSize);
 	replaceCommand("draw_surface", drawSurface);
 	replaceCommand("save_color_image", saveColorImage);
-
 	replaceCommand("clear_screen", clearScreen);
 	replaceCommand("save_dithered_image", saveDitheredImage);
 	replaceCommand("dither_surface", ditherSurface);
@@ -436,13 +446,29 @@ void Script::saveColorImage ()
 
 // 	const char *name = surface_filename_data;
 
-	/* Fuck, fuck, fuck...why can¥t I just have working exceptions with
+	/* Fuck, fuck, fuck...why cant I just have working exceptions with
 	 * every every version of gcc I can think of  (especially 2.7.x)...
 	 * I got internal compiler errors when trying to use them.
-	 * I could have just thrown an exception in FileWriter if the file couldn¥t
-	 * be opened. But now I¥ve got to open the file too early...
+	 * I could have just thrown an exception in FileWriter if the file couldnt
+	 * be opened. But now Ive got to open the file too early...
 	 */
 	
+	if (color_output_data == color_output_xwd_data) {
+		strcat(surface_filename_data, ".xwd");
+	} else if (color_output_data == color_output_sun_data) {
+		strcat(surface_filename_data, ".ras");
+	} else if (color_output_data == color_output_ppm_data) {
+		strcat(surface_filename_data, ".ppm");
+	} else if (color_output_data == color_output_jpeg_data) {
+		strcat(surface_filename_data, ".jpg");
+	} else if (color_output_data == color_output_postscript_data) {
+		strcat(surface_filename_data, ".ps");
+	} else if (color_output_data == color_output_encapsulatedpostscript_data) {
+		strcat(surface_filename_data, ".eps");
+	} else if (color_output_data == color_output_pdf_data) {
+		strcat(surface_filename_data, ".pdf");
+	} 
+
 	FileWriter fw (surface_filename_data);
 	FILE *f = fw.openFile();
 	if (f==0) {
@@ -470,6 +496,13 @@ void Script::saveColorImage ()
 		buffer->write_as_ppm (fw.openFile());
 	} else if (color_output_data == color_output_jpeg_data) {
 		buffer->write_as_jpeg (fw.openFile());
+	} else if (color_output_data == color_output_postscript_data) {
+		buffer->write_as_ps (fw.openFile(),print_color_resolution_array_data[print_color_resolution_data]);
+	} else if (color_output_data == color_output_encapsulatedpostscript_data) {
+		buffer->write_as_eps (fw.openFile(),print_color_resolution_array_data[print_color_resolution_data]);
+	} else if (color_output_data == color_output_pdf_data) {
+		buffer->write_as_pdf (fw.openFile(),print_color_resolution_array_data[print_color_resolution_data], fw.getName());
+		
 	}
 }
 
@@ -546,6 +579,34 @@ void Script::saveDitheredImage()
 	BEGIN("Script::saveDitheredImage");
 	Thread::setDoing ("saving dithered image...");
 	bit_buffer *pixel = getBitBuffer();
+
+	switch( print_output_data ) {
+	case  0 :
+		strcat(surface_filename_data, ".ps");
+		break;
+	case  1 :
+		strcat(surface_filename_data, ".eps");
+		break;
+	case  2 :
+		strcat(surface_filename_data, ".bmp");
+		break;
+	case  3 :
+		strcat(surface_filename_data, ".tiff");
+		break;
+	case 5:
+		strcat(surface_filename_data, ".pgm");
+		break;
+	case 6:
+		strcat(surface_filename_data, ".pbm");
+		break;
+	case 7: 
+		strcat(surface_filename_data, ".pdf");
+		break;
+	default :
+		Misc::alert ("dither_file_format out of range. no saving done.");
+		break;
+	}
+
 	char *name = surface_filename_data;
 
 	if (name == 0)
@@ -589,6 +650,11 @@ void Script::saveDitheredImage()
 		
 	case 6:
 		pixel->write_as_pbm (fw.openFile());
+		break;
+		
+	case 7: 
+		pdfprint (*pixel, fw.openFile(), 
+		print_resolution_array_data[print_resolution_data], fw.getName());
 		break;
 		
 	default :
@@ -822,3 +888,4 @@ void Script::cutWithSurface()
 	        delete clip;
 	}
 }
+

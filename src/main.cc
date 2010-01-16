@@ -22,7 +22,7 @@
  *
  */
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -30,7 +30,7 @@
 #include "welcomeMessage.h"
 #include "compfn.h"
 #include "Options.h"
-
+using namespace std;
 extern void start_gtk_main();
 
 Options* options;

@@ -26,7 +26,7 @@
 #ifndef TREEPOLYNOM_H
 #define TREEPOLYNOM_H
 
-#include <iostream.h>
+#include <iostream>
 
 #include "defs.h"
 #include "debug.h"
@@ -93,7 +93,7 @@ public:
 
 	int _isNull() const {return root == NIL;};
 
-	void print (ostream &os) const;
+	void print (std::ostream &os) const;
 
 	static TreePolynom* multiply (TreePolynom *tp1, TreePolynom *tp2);
 
@@ -276,7 +276,7 @@ TreePolynom<Monom> * TreePolynom<Monom>::clone() const
 
 
 template<class Monom>
-void TreePolynom<Monom>::print (ostream &os) const
+void TreePolynom<Monom>::print (std::ostream &os) const
 {
 	RBNode *it;
 	iteratorInit (it, root);
@@ -294,7 +294,7 @@ void TreePolynom<Monom>::print (ostream &os) const
 }
 
 template<class Monom> 
-ostream & operator << (ostream &os, const TreePolynom<Monom> &tp)
+std::ostream & operator << (std::ostream &os, const TreePolynom<Monom> &tp)
 {
 	tp.print(os);
 	return os;
@@ -377,7 +377,7 @@ public:
 	
 	
 
-	// friend class ostream &operator<<(ostream &os, const TreePoly<Monom> &tp);
+	// friend class std::ostream &operator<<(std::ostream &os, const TreePoly<Monom> &tp);
 	int _isNull () const {return poly->_isNull();};
 
  	void withAllMonomsPerform ( void (*action) (Monom *) ) 
@@ -386,7 +386,7 @@ public:
 	void withMonomsPerform ( void (*action) (Monom *, void *), void *data ) 
 		{poly->withMonomsPerform(action,data);};
 
-	void print (ostream &os) const { os << *poly;}
+	void print (std::ostream &os) const { os << *poly;}
 
 protected:
 	TreePolynom<Monom> *poly;
@@ -406,7 +406,7 @@ void setNull (TreePoly<Monom> &tp)
 }
 
 template<class Monom> 
-ostream &operator<<(ostream &os, const TreePoly<Monom> &tp)
+std::ostream &operator<<(std::ostream &os, const TreePoly<Monom> &tp)
 {
 	tp.print(os);
 	return os;

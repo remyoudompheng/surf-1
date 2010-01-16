@@ -26,7 +26,8 @@
 #ifndef POLYX_H
 #define POLYX_H
 
-#include <iostream.h>
+#include <iostream>
+#include <ostream>
 
 /*****************************************************************************/
 /*  POLYNIMIALS IN X                                                         */
@@ -69,6 +70,6 @@ public:
 	double  *a;
 };
 
-ostream & operator << (ostream &os, const polyx &p);
+std::ostream & operator << (std::ostream &os, const polyx &p);
 
 #endif

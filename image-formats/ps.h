@@ -22,9 +22,6 @@
  *
  */
 
-
-
-
 // ============================================================================
 // File      ps.h
 // Author:   Stephan Endrass
@@ -32,9 +29,26 @@
 // Date:     3.2.95
 // ============================================================================
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
+
 #ifndef PS_H
 #define PS_H
 
+
 bool psprint (class bit_buffer &pixel, FILE *psfile, int resolution);
+bool psprint_color(class RgbBuffer &pixel, FILE *psfile, int resolution);
+
+bool pdfprint (class bit_buffer &pixel, FILE *psfile, int resolution, const char *fileloc);
+bool pdfprint_color (class RgbBuffer &pixel, FILE *psfile, int resolution, const char *fileloc);
 
 #endif  /* PS_H */

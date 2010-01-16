@@ -22,7 +22,7 @@
  *
  */
 
-// $Id$
+// $Id: /surf-1/image-formats/jpeg.h 22695 2006-03-04T20:43:06.168497Z titty  $
 //
 // Author: Johannes Beigel <jojo@beigel.de>
 

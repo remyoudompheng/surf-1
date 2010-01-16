@@ -26,7 +26,7 @@
 #ifndef BIGINTEGER_H
 #define BIGINTEGER_H
 
-#include <iostream.h>
+#include <iostream>
 
 #include "mygmp.h"
 
@@ -46,7 +46,7 @@ public:
 	void operator += (const BigInteger &b);
 	void operator -= (const BigInteger &b);
 
-	void print (ostream &os) const;
+	void print (std::ostream &os) const;
 	void setLong (long int val)
 		{
 			mpz_set_si (mpz, val);
@@ -62,7 +62,7 @@ private:
 	mpz_t mpz;
 };
 
-inline ostream & operator << (ostream &os, const BigInteger &b)
+inline std::ostream & operator << (std::ostream &os, const BigInteger &b)
 {
 	b.print(os);
 	return os;

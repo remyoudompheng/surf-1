@@ -22,7 +22,17 @@
  *
  */
 
-
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps,eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 #ifndef GUI_CONFIG_H
 #define GUI_CONFIG_H
@@ -229,6 +239,18 @@ extern  int     print_resolution_300dpi_data;
 extern  int     print_resolution_600dpi_data;
 extern  int     print_resolution_1200dpi_data;
 
+
+
+extern  int     print_color_resolution_data;
+
+extern  int     print_color_resolution_array_data[6];
+
+extern  int     print_color_resolution_75dpi_data;
+extern  int     print_color_resolution_100dpi_data;
+extern  int     print_color_resolution_150dpi_data;
+extern  int     print_color_resolution_300dpi_data;
+extern  int     print_color_resolution_600dpi_data;
+extern  int     print_color_resolution_1200dpi_data;
 
 // --------------
 //  Pixel radius

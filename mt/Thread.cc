@@ -23,13 +23,16 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 #include <pthread.h>
 
 #include "Thread.h"
 
 // #define DEBUG
 #include "debug.h"
+
+using namespace std;
+
 
 static bool is_multithreaded=false;
 static pthread_key_t threadPointer;

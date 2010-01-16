@@ -142,11 +142,11 @@ Type Matrix<Type>::threadedDeterminant () const
 			deleteRowAndColumn(bestRow, col, *m);
 			int err = pthread_create(&threads[col].thread, 0, computeDeterminant, m);
 			assert(err==0);
-			cerr << "started" << endl;
+			std::cerr << "started" << std::endl;
 			threads[col].nonzero=true;
 		}
 
-		cerr << "okay...started some threads" << endl;
+		std::cerr << "okay...started some threads" << std::endl;
 
 		for (col=0; col<getSize(); col++) {
 
@@ -162,7 +162,7 @@ Type Matrix<Type>::threadedDeterminant () const
 				}
 				delete subdet;
 
-				cerr << "joined..." << endl;
+				std::cerr << "joined..." << std::endl;
 			}
 		}
 
@@ -177,7 +177,7 @@ Type Matrix<Type>::threadedDeterminant () const
 
 			int err = pthread_create(&threads[row].thread, 0, computeDeterminant, m);
 			assert(err==0);
-			cerr << "started" << endl;
+			std::cerr << "started" << std::endl;
 			threads[row].nonzero=true;
 		}
 
@@ -193,7 +193,7 @@ Type Matrix<Type>::threadedDeterminant () const
 				}
 				delete subdet;
 
-				cerr << "joined..." << endl;
+				std::cerr << "joined..." << std::endl;
 			}
 		}
 		
@@ -259,13 +259,13 @@ void Matrix<Type>::getBestColumn (int &col, int &zeros) const
 }
 
 template<class Type> 
-ostream & operator << (ostream &os, const Matrix<Type> &m)
+std::ostream & operator << (std::ostream &os, const Matrix<Type> &m)
 {
 	int size=m.getSize();
 	int i;
 	int j;
 	for (i=0; i<size; i++) {
-		os << endl << "Zeile " << i << ":";
+		os << std::endl << "Zeile " << i << ":";
 		for (j=0; j<size; j++)
 			os << m.getElement(i,j) << "    ";
 	}
