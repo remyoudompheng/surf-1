@@ -123,13 +123,12 @@ dnl when compiling with CUPS support check for CUPS
 
 if test "$cups" = "yes"
 then
-
 	AC_PATH_PROG(CUPSCONFIG,cups-config)
 	AC_DEFINE(HAVE_LIBCUPS)
 	CFLAGS="`$CUPSCONFIG --cflags` $CFLAGS"
 	CXXFLAGS="`$CUPSCONFIG --cflags` $CXXFLAGS"
 	LIBS="`$CUPSCONFIG --libs` $LIBS"
-	AM_CONDITIONAL(CUPS, test "x$cups" = "xyes");
+	AM_CONDITIONAL(CUPS, test "x$cups" = "xyes")
 fi
 
 dnl when compiling with GUI support check for GTK >= 1.2.0 and X:
@@ -148,7 +147,7 @@ AC_PATH_XTRA
 CFLAGS="$CFLAGS $X_CFLAGS"
 CXXFLAGS="$CXXFLAGS $X_CFLAGS"
 
-AM_CONDITIONAL(GUI, test "x$gui" = "xyes");
+AM_CONDITIONAL(GUI, test "x$gui" = "xyes")
 
 
 dnl math lib, power function and (g)zlib:

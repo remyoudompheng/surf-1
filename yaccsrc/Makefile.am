@@ -3,6 +3,9 @@ include $(top_srcdir)/Makefile.global
 EXTRA_DIST = polyyacc.h
 YACC = @YACC@ -d
 
+polylex.c: polyyacc.c
+lexfunc.cc: polyyacc.c
+
 noinst_LIBRARIES = libdummy.a
 libdummy_a_SOURCES =	bezierarith.cc bezierarith.h	\
 			hornerarith.cc hornerarith.h	\
