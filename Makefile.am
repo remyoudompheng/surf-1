@@ -36,6 +36,10 @@ else
 SUBDIRS = yaccsrc src image-formats drawfunc curve mt draw misc debug dither
 endif
 
+if GTK2
+SUBDIRS = $(SUBDIRS) gtk2gui
+endif
+
 bin_PROGRAMS = surf
 surf_SOURCES = 
 EXTRA_DIST = background.pic Makefile.global aclocal.m4 surf.1 surf.xpm

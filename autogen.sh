@@ -8,9 +8,9 @@ fi;
 # echo "creating yaccsrc/addDefaultSymbols.cc from defaults.pic"
 # perl tools/convertScript.pl defaults.pic >yaccsrc/addDefaultSymbols.cc
 
-automake -a --foreign
 aclocal
 autoconf
+automake -a --foreign
 
 echo "running ./configure $*"
 ./configure $*
