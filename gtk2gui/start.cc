@@ -29,7 +29,13 @@ main (int argc, char *argv[])
 {
   Gtk::Main kit(argc, argv);
   Glib::RefPtr<Gtk::Builder> refGlade = Gtk::Builder::create();
+  refGlade->add_from_string(gtk2gui_xml);
+
+  Gtk::Window* window;
+  refGlade->get_widget("window_main", window);
+  window->show_all();
 
   kit.run();
+
   return 0;
 }
