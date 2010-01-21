@@ -60,7 +60,7 @@ then
 	AC_DEFINE(false,0)
 fi
 
-LF_CHECK_CXX_FLAG(-fno-rtti -fno-exceptions)
+# LF_CHECK_CXX_FLAG(-fno-rtti -fno-exceptions)
 LF_CHECK_CXX_FLAG(-Wall -W -Wwrite-strings -Wpointer-arith -Wconversion -Wno-unused  -Wstrict-prototypes -Wmissing-prototypes -Woverloaded-virtual -Wno-deprecated)
 
 ICE_CXX_EXPLICIT_TEMPLATE_INSTANTIATION
@@ -163,9 +163,10 @@ PKG_PROG_PKG_CONFIG()
 
 if test "$gtk2" = "yes"
 then
+        AC_PATH_PROG(XXD, xxd)
 	PKG_CHECK_MODULES([GTK2], [gtk+-2.0 >= 2.12])
 	PKG_CHECK_MODULES([GTKMM], [gtkmm-2.4 >= 2.12])
-	CPPFLAGS="$CPPFLAGS $GTK2_CFLAGS $GTKMM_CLFAGS"
+	CPPFLAGS="$CPPFLAGS $GTK2_CFLAGS $GTKMM_CFLAGS"
 	LIBS="$LIBS $GTK2_LIBS $GTKMM_LIBS"
 fi
 
