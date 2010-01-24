@@ -6,8 +6,8 @@ YACC = @YACC@ -d
 polylex.c: polyyacc.c
 lexfunc.cc: polyyacc.c
 
-noinst_LIBRARIES = libdummy.a
-libdummy_a_SOURCES =	bezierarith.cc bezierarith.h	\
+noinst_LIBRARIES = libsurf_parser.a
+libsurf_parser_a_SOURCES =	bezierarith.cc bezierarith.h	\
 			hornerarith.cc hornerarith.h	\
 			monomarith.cc monomarith.h	\
 			mymemory.cc mymemory.h		\
@@ -22,5 +22,7 @@ libdummy_a_SOURCES =	bezierarith.cc bezierarith.h	\
 			ExecuteScriptStruct.cc ExecuteScriptStruct.h \
 			addDefaultSymbols.cc addDefaultSymbols.h
 
-libdummy.a:: $(libdummy_a_OBJECTS) $(libdummy_a_DEPENDENCIES)
-
+libsurf_parser_a_LIBADD = \
+	$(top_srcdir)/mt/libsurf_mt.a \
+	$(top_srcdir)/drawfunc/libsurf_drawfunc.a \
+	$(top_srcdir)/draw/libsurf_draw.a

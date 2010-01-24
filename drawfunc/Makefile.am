@@ -1,7 +1,7 @@
 include $(top_srcdir)/Makefile.global
 
-noinst_LIBRARIES = libdummy.a
-libdummy_a_SOURCES =	Bezier.cc Bezier.h				\
+noinst_LIBRARIES = libsurf_drawfunc.a
+libsurf_drawfunc_a_SOURCES = Bezier.cc Bezier.h				\
 			Clip.cc Clip.h					\
 			DrawFunc.cc DrawFunc.h				\
 			DrawfuncData.cc DrawfuncData.h			\
@@ -18,5 +18,3 @@ libdummy_a_SOURCES =	Bezier.cc Bezier.h				\
 			RationalHornerXY.cc RationalHornerXY.h		\
 			MultiIndex.h					\
 			Monomial.h
-
-libdummy.a:: $(libdummy_a_OBJECTS) $(libdummy_a_DEPENDENCIES)

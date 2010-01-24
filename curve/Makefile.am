@@ -1,7 +1,7 @@
 include $(top_srcdir)/Makefile.global
 
-noinst_LIBRARIES = libdummy.a
-libdummy_a_SOURCES = RBTree.cc RBTree.h		\
+noinst_LIBRARIES = libsurf_curve.a
+libsurf_curve_a_SOURCES = RBTree.cc RBTree.h		\
         Array.h				\
         defs.h				\
         Matrix.h			\
@@ -18,4 +18,4 @@ libdummy_a_SOURCES = RBTree.cc RBTree.h		\
 	Bezout.h
 
 EXTRA_DIST = examples.txt
-libdummy.a:: $(libdummy_a_OBJECTS) $(libdummy_a_DEPENDENCIES)
+

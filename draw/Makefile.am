@@ -1,8 +1,8 @@
 include $(top_srcdir)/Makefile.global
 
-noinst_LIBRARIES = libdummy.a
+noinst_LIBRARIES = libsurf_draw.a
 
-libdummy_a_SOURCES = SurfaceCalc.cc SurfaceCalc.h \
+libsurf_draw_a_SOURCES = SurfaceCalc.cc SurfaceCalc.h \
 	NewClip.cc               NewClip.h \
 	NewSimpleClip.cc         NewSimpleClip.h \
 	NewClipSphere.cc         NewClipSphere.h \
@@ -18,6 +18,4 @@ libdummy_a_SOURCES = SurfaceCalc.cc SurfaceCalc.h \
 	NewClipAlgebraicUser.cc  NewClipAlgebraicUser.h \
 	                         NewClipNone.h \
 	Preview.h
-
-libdummy.a:: $(libdummy_a_OBJECTS) $(libdummy_a_DEPENDENCIES)
 

@@ -1,7 +1,7 @@
 include $(top_srcdir)/Makefile.global
 
-noinst_LIBRARIES = libdummy.a
-libdummy_a_SOURCES = compfn.cc \
+bin_PROGRAMS = surf
+surf_SOURCES = compfn.cc \
         cube.cc \
         float_buffer.cc \
         gui_config.cc \
@@ -31,6 +31,27 @@ libdummy_a_SOURCES = compfn.cc \
 	mytypes.h \
 	Options.h Options.cc
 
+surf_LDADD =
 
-libdummy.a:: $(libdummy_a_OBJECTS) $(libdummy_a_DEPENDENCIES)
+if GUI
+surf_LDADD += $(top_builddir)/gtkgui/libsurf_gtkgui.a
+surf_LDADD += -lXmu -lXext -lXt @X_PRE_LIBS@ @X_LIBS@ -lX11 @X_EXTRA_LIBS@ @GTK_LIBS@
+endif
+
+if CUPS
+surf_LDADD += -lcups
+endif
+
+surf_LDADD += \
+     $(top_builddir)/yaccsrc/libsurf_parser.a \
+     $(top_builddir)/curve/libsurf_curve.a \
+     $(top_builddir)/draw/libsurf_draw.a \
+     $(top_builddir)/drawfunc/libsurf_drawfunc.a \
+     $(top_builddir)/debug/libsurf_debug.a \
+     $(top_builddir)/dither/libsurf_dither.a \
+     $(top_builddir)/image-formats/libsurf_image.a \
+     $(top_builddir)/misc/libsurf_misc.a \
+     $(top_builddir)/mt/libsurf_mt.a
+
+surf_LDADD += -lfl
 
