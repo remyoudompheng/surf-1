@@ -28,15 +28,20 @@
 
 #include <gtkmm.h>
 
-class MainWindow : public Gtk::Window 
+class MainWindow : public Gtk::Window
 {
- public: 
+ public:
   MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& refGlade);
   virtual ~MainWindow();
 
  protected:
   Glib::RefPtr<Gtk::Builder> uidef;
 
+  void _on_new_activate();
+  void _on_open_activate();
+  void _on_save_activate();
+  void _on_save_as_activate();
+  void _on_quit_activate();
 };
 
 #endif //!MAIN_WINDOW_H
