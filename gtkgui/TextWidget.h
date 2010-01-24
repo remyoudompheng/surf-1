@@ -21,6 +21,17 @@
  *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Sven Sperner
+ Changes: Support for Mouse-Scrolling in Script-Window
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 
 #ifndef TEXTWIDGET_H
@@ -40,6 +51,8 @@ public:
 	void setName (const char *name);
 
 	operator GtkText * () {return GTK_TEXT(text);};
+
+	static void handle_scroll_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
 protected:
 	GtkWidget *hbox;
 	GtkWidget *text;

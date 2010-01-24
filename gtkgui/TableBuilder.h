@@ -84,7 +84,7 @@ public:
 	GtkWidget *getTable()
 		{
 			if (currentHeight != height) {
-				cerr << "WARNING: currentHeight=" << currentHeight << " != " << height << endl;
+				std::cerr << "WARNING: currentHeight=" << currentHeight << " != " << height << std::endl;
 			}
 			assert(currentHeight==height);
 			return table;

@@ -22,10 +22,23 @@
  *
  */
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add save options for: pdf, eps, ps 
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
+
 
 #include <strstream>
 
 #include "SaveImageDialog.h"
+using namespace std;
 
 using std::ostrstream;
 
@@ -91,6 +104,10 @@ SaveImageDialog::SaveImageDialog ()
 	omb.addOption ("sun rasterfile (.ras)" , "sun");
 	omb.addOption ("X window dump (.xwd)"  , "xwd");
 	omb.addOption ("JPEG file (.jpg)", "jpg");
+	omb.addOption ("postscript (.ps)", "postscript_color");
+	omb.addOption ("encap. postscript (.eps)", "encapsulatedpostscript_color");
+	omb.addOption ("Portable Document Format (.pdf)", "pdf_color");
+ 	
 			
 	GtkWidget *om=omb.getOptionMenu();
 	gtk_box_pack_start (GTK_BOX(colorBox), om, TRUE, TRUE, 0);
@@ -108,12 +125,29 @@ SaveImageDialog::SaveImageDialog ()
 	gtk_box_pack_start (GTK_BOX(colorBox), om, TRUE, TRUE, 0);
 	wrw.addWidget (om, "color_file_colormap");
 
+	omb.addOption ("75 dpi"  , "res_75dpi"  );
+	omb.addOption ("100 dpi" , "res_100dpi" );
+	omb.addOption ("150 dpi" , "res_150dpi" );
+	omb.addOption ("300 dpi" , "res_300dpi" );
+	omb.addOption ("600 dpi" , "res_600dpi" );
+	omb.addOption ("1200 dpi", "res_1200dpi");
+
+	gtk_box_pack_start (GTK_BOX(colorBox), om=omb.getOptionMenu(), TRUE, TRUE, 0);
+	
+	gtk_option_menu_set_history (GTK_OPTION_MENU(om), 3);
+ 	gtk_menu_set_active (GTK_MENU(gtk_option_menu_get_menu(GTK_OPTION_MENU(om))), 3);
+
+	wrw.addWidget (om, "color_resolution");
+
+
 	omb.addOption ("portable bitmap (.pbm)"        , "pbm");
 	omb.addOption ("postscript (.ps)"              , "postscript");
 	omb.addOption ("encapsulated postscript (.eps)", "encapsulated");
 	omb.addOption ("X11 bitmap (.xbm)"             , "X11_bitmap");
 	omb.addOption ("Tiff (.tiff)"                  , "tiff");
 	omb.addOption ("portable graymap (.pgm)"       , "pgm");
+	omb.addOption ("Portable Document Format (.pdf)", "pdf");
+	
 	om=omb.getOptionMenu();
 	gtk_box_pack_start (GTK_BOX(bwBox), om, TRUE, TRUE, 0);
 	wrw.addWidget (om, "dither_file_format");

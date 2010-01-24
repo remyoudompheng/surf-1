@@ -23,7 +23,7 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 
 #include "mygtk.h"
 #include "GuiThread.h"
@@ -31,6 +31,7 @@
 #include "MainWindowController.h"
 #include "Document.h"
 #include "Options.h"
+using namespace std;
 
 void new_input(void *data, int source, GdkInputCondition cond)
 {

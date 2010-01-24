@@ -23,8 +23,6 @@
  */
 
 
-
-
 // ----------------------------------------------------------------------------
 // file                rgb_buffer.cc
 // implementation by kai
@@ -32,11 +30,22 @@
 // sk :ganzer File neu
 // ----------------------------------------------------------------------------
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps,eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 
 #include <math.h>
 #include <stdlib.h>
-#include <iostream.h>
+#include <iostream>
 #include <stdio.h>
 #include <string.h>
 
@@ -50,9 +59,10 @@
 #include "xwd.h"
 #include "sun.h"
 #include "jpeg.h"
-
+#include "ps.h"
+#include "eps.h"
 #include "RGBToNetscape.h"
-
+using namespace std;
 
 // ----------------------------------------------------------------------------
 // constructors for RgbBuffer
@@ -83,8 +93,8 @@ RgbBuffer::RgbBuffer( int w, int h )
 	  
 	  tag(new byte[w*h]),         
 	  n(w*h), 
-	  nmap(0)	 	 
-           
+	  nmap(0)	 	
+
 {
 }
 
@@ -140,7 +150,7 @@ void RgbBuffer::Realloc( int w, int h )
 	b    = new byte [n];
 	map  = new byte [n];
 	curv = new byte [n];
-	tag  = new byte [n];            
+	tag  = new byte [n];           
 }
 
 // ----------------------------------------------------------------------------
@@ -660,6 +670,21 @@ void RgbBuffer::write_as_sun8_optimized (FILE *f, bool dither, double ditherval)
 			 rmap, gmap, bmap, nmap, f);
 }
 
+void RgbBuffer::write_as_ps (FILE *f, int resolution)
+{
+	psprint_color(*this, f, resolution);
+}
+
+void RgbBuffer::write_as_eps (FILE *f, int resolution)
+{
+	epsprint_color(*this, f, resolution);
+}
+
+void RgbBuffer::write_as_pdf (FILE *f, int resolution,const char *fileloc)
+{
+	
+	pdfprint_color(*this, f, resolution, (const char*) fileloc);
+}
 
 void RgbBuffer::write_as_ppm (FILE *f)
 {

@@ -26,7 +26,7 @@
 #ifndef CONFIGURATIONWINDOW_H
 #define CONFIGURATIONWINDOW_H
 
-#include <iostream.h>
+#include <iostream>
 #include "mygtk.h"
 
 #include "ParameterWindow.h"

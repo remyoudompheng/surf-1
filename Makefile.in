@@ -60,21 +60,34 @@ POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
 CC = @CC@
+CUPSCONFIG = @CUPSCONFIG@
 CXX = @CXX@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_CONFIG = @GTK_CONFIG@
+GTK_LIBS = @GTK_LIBS@
+HAVE_LIB = @HAVE_LIB@
 LEX = @LEX@
+LIB = @LIB@
+LTLIB = @LTLIB@
+MAKEINFO = @MAKEINFO@
+PACKAGE = @PACKAGE@
 RANLIB = @RANLIB@
+VERSION = @VERSION@
 YACC = @YACC@
+canonical_host_type = @canonical_host_type@
 
 AUTOMAKE_OPTIONS = foreign 1.4
 
 DITHER_OBJ = dither/dither_brute.o dither/dither_clustered.o dither/dither_dispersed.o dither/dither_floyd_steinberg.o dither/dither_jarvis_judis_ninke.o dither/dither_stucki.o dither/dither_dot_diffusion.o dither/dither_smooth_dot_diffusion.o dither/copy_rgb_to_float.o dither/copy_rgb_to_float_curve.o dither/dither_pixel_radius_adjust.o
+
 DEBUG_OBJ = debug/debug.o
 MISC_OBJ = misc/welcomeMessage.o misc/Misc.o misc/mystrdup.o
 
 DRAW_OBJ = draw/NewClip.o draw/NewClipSphere.o draw/NewClipSphereCentral.o draw/NewClipSphereParallel.o draw/NewClipAlgebraic.o draw/NewClipAlgebraicCube.o draw/NewClipAlgebraicTetra.o draw/NewClipAlgebraicOcta.o draw/NewClipAlgebraicDode.o draw/NewClipAlgebraicIco.o draw/NewClipAlgebraicCyl.o draw/NewClipAlgebraicUser.o draw/NewSimpleClip.o draw/SurfaceCalc.o
-MT_OBJ = mt/GuiThread.o mt/Thread.o mt/TSDrawingArea.o mt/cthread.o
 
-GTKGUI_OBJ = gtkgui/start.o gtkgui/MainWindowController.o gtkgui/mycolor.o gtkgui/TextWidget.o gtkgui/showAbout.o gtkgui/ProgressDialog.o gtkgui/ColorWindow.o gtkgui/DrawingArea.o gtkgui/PositionWindow.o gtkgui/ConfigurationWindow.o gtkgui/NumericWindow.o gtkgui/ColorSelectionButton.o gtkgui/IlluminationWindow.o gtkgui/Requester.o gtkgui/DisplayWindow.o gtkgui/WidgetReadWriter.o gtkgui/DitherWindow.o gtkgui/ClipWindow.o gtkgui/Document.o gtkgui/RGBToStandard.o gtkgui/mygtk.o gtkgui/SaveImageDialog.o
+MT_OBJ = mt/GuiThread.o mt/Thread.o mt/TSDrawingArea.o mt/cthread.o
+@CUPS_TRUE@GTKGUI_OBJ = gtkgui/start.o gtkgui/MainWindowController.o gtkgui/mycolor.o gtkgui/TextWidget.o gtkgui/showAbout.o gtkgui/ProgressDialog.o gtkgui/ColorWindow.o gtkgui/DrawingArea.o gtkgui/PositionWindow.o gtkgui/ConfigurationWindow.o gtkgui/NumericWindow.o gtkgui/ColorSelectionButton.o gtkgui/IlluminationWindow.o gtkgui/Requester.o gtkgui/DisplayWindow.o gtkgui/WidgetReadWriter.o gtkgui/DitherWindow.o gtkgui/ClipWindow.o gtkgui/Document.o gtkgui/RGBToStandard.o gtkgui/mygtk.o gtkgui/SaveImageDialog.o gtkgui/PrintImageDialog.o
+@CUPS_FALSE@GTKGUI_OBJ = gtkgui/start.o gtkgui/MainWindowController.o gtkgui/mycolor.o gtkgui/TextWidget.o gtkgui/showAbout.o gtkgui/ProgressDialog.o gtkgui/ColorWindow.o gtkgui/DrawingArea.o gtkgui/PositionWindow.o gtkgui/ConfigurationWindow.o gtkgui/NumericWindow.o gtkgui/ColorSelectionButton.o gtkgui/IlluminationWindow.o gtkgui/Requester.o gtkgui/DisplayWindow.o gtkgui/WidgetReadWriter.o gtkgui/DitherWindow.o gtkgui/ClipWindow.o gtkgui/Document.o gtkgui/RGBToStandard.o gtkgui/mygtk.o gtkgui/SaveImageDialog.o
 
 CURVE_OBJ = curve/RBTree.o curve/resultant.o curve/RootFinder2d.o curve/RootFinder3d.o curve/DrawCurve.o curve/BigInteger.o
 
@@ -95,6 +108,7 @@ surf_SOURCES =
 EXTRA_DIST = background.pic Makefile.global aclocal.m4 surf.1 surf.xpm
 man_MANS = surf.1
 pkgdata_DATA = surf.xpm
+ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_CLEAN_FILES = 
 PROGRAMS =  $(bin_PROGRAMS)
@@ -119,12 +133,9 @@ NROFF = nroff
 DATA =  $(pkgdata_DATA)
 
 DIST_COMMON =  README AUTHORS COPYING ChangeLog INSTALL Makefile.am \
-Makefile.in NEWS TODO acinclude.m4 config.guess config.sub configure \
-configure.in install-sh missing mkinstalldirs
+Makefile.in NEWS TODO acinclude.m4 aclocal.m4 config.guess config.sub \
+configure configure.in install-sh missing mkinstalldirs
 
-
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
@@ -140,9 +151,9 @@ all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .S .c .o .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile
+	cd $(top_srcdir) && $(AUTOMAKE) --foreign --include-deps Makefile
 
-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
@@ -178,6 +189,9 @@ uninstall-binPROGRAMS:
 	list='$(bin_PROGRAMS)'; for p in $$list; do \
 	  rm -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
 	done
+
+.c.o:
+	$(COMPILE) -c $<
 
 .s.o:
 	$(COMPILE) -c $<
@@ -265,7 +279,7 @@ uninstall-pkgdataDATA:
 all-recursive install-data-recursive install-exec-recursive \
 installdirs-recursive install-recursive uninstall-recursive  \
 check-recursive installcheck-recursive info-recursive dvi-recursive:
-	@set fnord $(MAKEFLAGS); amf=$$2; \
+	@set fnord $$MAKEFLAGS; amf=$$2; \
 	dot_seen=no; \
 	target=`echo $@ | sed s/-recursive//`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
@@ -285,7 +299,7 @@ check-recursive installcheck-recursive info-recursive dvi-recursive:
 
 mostlyclean-recursive clean-recursive distclean-recursive \
 maintainer-clean-recursive:
-	@set fnord $(MAKEFLAGS); amf=$$2; \
+	@set fnord $$MAKEFLAGS; amf=$$2; \
 	dot_seen=no; \
 	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
 	  rev="$$subdir $$rev"; \
@@ -331,7 +345,7 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
 	  awk '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
 	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
-	  || (cd $(srcdir) && etags -o $$here/TAGS $(ETAGS_ARGS) $$tags  $$unique $(LISP))
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
 
 mostlyclean-tags:
 
@@ -380,11 +394,6 @@ distdir: $(DISTFILES)
 	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
-	here=`cd $(top_builddir) && pwd`; \
-	top_distdir=`cd $(distdir) && pwd`; \
-	distdir=`cd $(distdir) && pwd`; \
-	cd $(top_srcdir) \
-	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign Makefile
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
@@ -487,10 +496,12 @@ installdirs mostlyclean-generic distclean-generic clean-generic \
 maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 
-@GUI_TRUE@surf: $(LOCAL_OBJECTS) $(GTKGUI_OBJ)
-@GUI_TRUE@	$(CXX) $(LOCAL_OBJECTS) $(GTKGUI_OBJ) -o surf $(LDFLAGS) -lXmu -lXext -lXt @X_PRE_LIBS@ @X_LIBS@ -lX11 @X_EXTRA_LIBS@ $(LIBS) -lfl @GTK_LIBS@
-@GUI_FALSE@surf: $(LOCAL_OBJECTS)
-@GUI_FALSE@	$(CXX) $(LOCAL_OBJECTS) -o surf $(LDFLAGS) $(LIBS) -lfl 
+@CUPS_TRUE@surf: $(LOCAL_OBJECTS) $(GTKGUI_OBJ)
+@CUPS_TRUE@	$(CXX) $(LOCAL_OBJECTS) $(GTKGUI_OBJ) -o surf $(LDFLAGS) -lXmu -lXext -lXt @X_PRE_LIBS@ @X_LIBS@ -lX11 @X_EXTRA_LIBS@ $(LIBS) -lfl @GTK_LIBS@ -lcups
+@CUPS_FALSE@@GUI_TRUE@surf: $(LOCAL_OBJECTS) $(GTKGUI_OBJ)
+@CUPS_FALSE@@GUI_TRUE@	$(CXX) $(LOCAL_OBJECTS) $(GTKGUI_OBJ) -o surf $(LDFLAGS) -lXmu -lXext -lXt @X_PRE_LIBS@ @X_LIBS@ -lX11 @X_EXTRA_LIBS@ $(LIBS) -lfl @GTK_LIBS@
+@CUPS_FALSE@@GUI_FALSE@surf: $(LOCAL_OBJECTS)
+@CUPS_FALSE@@GUI_FALSE@	$(CXX) $(LOCAL_OBJECTS) -o surf $(LDFLAGS) $(LIBS) -lfl 
 
 clean-local::
 	rm -f *~

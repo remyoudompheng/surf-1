@@ -24,10 +24,10 @@
 
 
 #include <limits.h>
-#include <iostream.h>
+#include <iostream>
 
 #include "bit_buffer.h"
-
+using namespace std;
 void bit_buffer::write_as_pbm (FILE *f)
 {
 	fprintf (f, "P4\n%d %d\n", width, height);

@@ -23,7 +23,7 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 
 #include "Misc.h"
 
@@ -32,6 +32,7 @@
 #include "GuiThread.h"
 #endif
 
+using namespace std;
 
 
 bool Misc::haveGUI ()

@@ -23,13 +23,14 @@
  */
 
 #include "Options.h"
-#include<iostream>
+#include <iostream>
 #include <string.h>
 #include <stdlib.h>
 
 #ifndef NO_GUI
 
 #include <gtk/gtk.h>
+using namespace std;
 
 namespace {
 char usage_text[] = "Usage: surf -n | --no-gui FILE...\n"

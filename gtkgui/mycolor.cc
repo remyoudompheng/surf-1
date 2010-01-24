@@ -24,7 +24,7 @@
 
 
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 #include <stdlib.h>
 #include <strstream>
 
@@ -41,6 +41,7 @@
 
 #include "mycolor.h"
 #include "Misc.h"
+using namespace std;
 
 // These are not declared static...they get used in SurfDrawingArea...
 Display * xdisplay        = 0;

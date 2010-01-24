@@ -31,7 +31,7 @@
 #include "DisplayWindow.h"
 #include "DitherWindow.h"
 #include "ClipWindow.h"
-
+using namespace std;
 static GtkWidget * makeFrame (GtkWidget *widget, const char *name)
 {
 	GtkWidget *frame = gtk_frame_new (name);

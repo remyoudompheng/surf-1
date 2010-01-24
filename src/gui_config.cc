@@ -22,7 +22,17 @@
  *
  */
 
-
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und FlÃ¤chen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps, eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -117,8 +127,8 @@ int     light_illumination_transmitted_data        = 8;
 
 
 
-//sk :1'ten Befehle zur Oberflächen-Eigenschaftenangabe bis auf ...
-//      ambient lassen sich alle E. für jede der 9 Flächen individiuell einstellen
+//sk :1'ten Befehle zur Oberflchen-Eigenschaftenangabe bis auf ...
+//      ambient lassen sich alle E. fr jede der 9 Flchen individiuell einstellen
 
 
 
@@ -245,7 +255,19 @@ int     print_resolution_300dpi_data	= 3;
 int     print_resolution_600dpi_data	= 4;
 int     print_resolution_1200dpi_data	= 5;
 
+int     print_color_resolution_data;
 
+int     print_color_resolution_array_data[6] =
+{
+	75, 100, 150, 300, 600, 1200
+};
+
+int     print_color_resolution_75dpi_data	= 0;
+int     print_color_resolution_100dpi_data	= 1;
+int     print_color_resolution_150dpi_data	= 2;
+int     print_color_resolution_300dpi_data	= 3;
+int     print_color_resolution_600dpi_data	= 4;
+int     print_color_resolution_1200dpi_data	= 5;
 // ----------------------------------------------------------------------------
 
 // ------------
@@ -399,7 +421,7 @@ int     numeric_iterations_data;
 // ----------------------------------------------------------------------------
 // The following data defines most of the appearance of the
 // clip configuration menu.
-// sk : Clip-Menü in clip_numeric_data im DepthCueing-Wert erweitert 
+// sk : Clip-Men in clip_numeric_data im DepthCueing-Wert erweitert 
 // ----------------------------------------------------------------------------
 
 

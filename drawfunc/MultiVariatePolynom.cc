@@ -36,7 +36,7 @@
 #include "MultiIndex.h"     // for power function
 #include "DrawFunc.h"       // for errnums in check
 #include "Monomial.h"
-
+using namespace std;
 // ----------------------------------------------------------------------------
 // ---------------- construktors of base - template ---------------------------
 // ----------------------------------------------------------------------------

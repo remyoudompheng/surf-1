@@ -23,8 +23,6 @@
  */
 
 
-
-
 // ----------------------------------------------------------------------------
 //  File                rgb_buffer.H
 //  implementation by kai
@@ -32,12 +30,24 @@
 //  sk :ganzer File neu
 // ----------------------------------------------------------------------------
 
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und FlÃ¤chen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps,eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
+
 #ifndef RGBBUFFER_H
 #define RGBBUFFER_H
 
 
-//sk :Namen für die Flags, die im TAG-Byte(siehe rgb_buffer) ...
-//    an jedem Pixel gesetzt werden können
+//sk :Namen fr die Flags, die im TAG-Byte(siehe rgb_buffer) ...
+//    an jedem Pixel gesetzt werden knnen
 
 #define CURVEBIT 	(1<<1)
 #define SURFBIT         (1<<2)
@@ -206,7 +216,12 @@ public:
 	void write_as_ppm (FILE *f);
 
 	void write_as_jpeg (FILE* f);
+	
+	void write_as_ps (FILE* f, int resolution);
 
+	void write_as_eps (FILE* f, int resolution);
+	
+	void write_as_pdf (FILE* f, int resolution, const char *fileloc);
 
 	
 

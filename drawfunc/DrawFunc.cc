@@ -26,7 +26,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#include <iostream.h>
+#include <iostream>
 
 #include "Script.h"
 
@@ -46,7 +46,7 @@
 
 // #define DEBUG
 #include "debug.h"
-
+using namespace std;
 static Position* GetPosition ();
 static Clip* GetClip (Position*);
 

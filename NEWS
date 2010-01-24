@@ -25,3 +25,18 @@ Version 1.0.0
   command line option)
 
 * lot's of other changes, I can't remember.
+
+
+Version 1.0.6
+=============
+
+* CUPS-Printing Support
+
+* New supported image formats: 
+  color pictures      : ps eps pdf
+  black&white pictures: ps eps pdf
+ 
+* Support for Mouse-Scrolling in Script-Window
+
+* Automatic appending of File-Extensions for Saving
+

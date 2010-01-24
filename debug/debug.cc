@@ -23,10 +23,11 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 
 #include "debug.h"
+using namespace std;
 
 static int level=0;
 int offlevel=0;

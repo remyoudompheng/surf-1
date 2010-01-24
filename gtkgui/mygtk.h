@@ -28,7 +28,7 @@
 
 #include <stdlib.h>
 #include <gtk/gtk.h>
-#include <iostream.h>
+#include <iostream>
 
 #define RECALL(method,klass)							\
 static void _ ## method (klass *k)						\

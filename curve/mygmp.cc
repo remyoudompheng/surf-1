@@ -24,7 +24,7 @@
 
 
 #include "mygmp.h"
-
+using namespace std;
 void mpz_pow (mpz_t result, mpz_t z, int n)
 {
 	mpz_set_ui(result, 1);

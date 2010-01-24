@@ -27,7 +27,7 @@
 #define RBTREE_H
 
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 
 #include "debug.h"
 

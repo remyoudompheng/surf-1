@@ -22,10 +22,25 @@
  *
  */
 
+/**************************************************************************
+    Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+		 zur Darstellung reell-algebraischer Kurven und Flächen'
+    from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+
+    Authors: Stephan Haasmann, Sven Sperner
+    Changes: enable support for Printing via CUPS
+    Date: Wintersemester 2009/2010
+    Last changed: 2010/01/14
+
+**************************************************************************/
 
 #ifndef MAINWINDOWCONTROLLER_H
 #define MAINWINDOWCONTROLLER_H
 
+#if defined(HAVE_LIBCUPS)
+#include <cups/cups.h>
+#include "PrintImageDialog.h"
+#endif
 #include "mygtk.h"
 #include "DrawingArea.h"
 
@@ -62,7 +77,6 @@ public:
 	
 	void enableSaveButton(SaveButtonType which);
 	
-
 protected:
 	MENUCALLBACK(showAbout, MainWindowController);
 	void showAbout();
@@ -75,6 +89,11 @@ protected:
 
 	MENUCALLBACK(loadScript, MainWindowController);
 	MENUCALLBACK(saveScript, MainWindowController);
+#if defined(HAVE_LIBCUPS)
+//Menuentrys for Printing
+	MENUCALLBACK(printColorImage, MainWindowController);
+	MENUCALLBACK(printDitheredImage, MainWindowController);
+#endif
 	MENUCALLBACK(executeScript, MainWindowController);
 	MENUCALLBACK(drawSurface, MainWindowController);
 	MENUCALLBACK(ditherSurface, MainWindowController);
@@ -128,18 +147,21 @@ protected:
 
 	VOIDCALL(saveDitheredImage, MainWindowController);
 	VOIDCALL(saveColorImage, MainWindowController);
+	VOIDCALL(saveImageDialogOkay, MainWindowController);
+	VOIDCALL(saveImageDialogCancel, MainWindowController);
 
+#if defined(HAVE_LIBCUPS)
+//Signalconnections for Printing
+	VOIDCALL(printDitheredImage, MainWindowController);
+	VOIDCALL(printColorImage, MainWindowController);
+	VOIDCALL(printImageDialogOkay, MainWindowController);
+	VOIDCALL(printImageDialogCancel, MainWindowController);
+#endif
 
 	VOIDCALL(destroy, MainWindowController);
 
-	VOIDCALL (fileSelected, MainWindowController);
-	VOIDCALL (fileSelectionCancelled, MainWindowController);
-
-
-	VOIDCALL (saveImageDialogOkay, MainWindowController);
-	VOIDCALL (saveImageDialogCancel, MainWindowController);
-
-
+	VOIDCALL(fileSelected, MainWindowController);
+	VOIDCALL(fileSelectionCancelled, MainWindowController);
 
 	static gint fileSelectionDelete (GtkWidget *widget, GdkEvent *event, gpointer data);
 
@@ -192,6 +214,12 @@ protected:
 private:
 	WidgetReadWriter wrw;
 	SaveImageDialog saveImageDialog;
+#if defined(HAVE_LIBCUPS)
+//Objects/Variables for Printing
+	PrintImageDialog printImageDialog;
+	cups_dest_t *myPrinters, *myPrinter;
+	int numMyPrinters;
+#endif
 
 	ProgressDialog progress;
 

@@ -22,15 +22,24 @@
  *
  */
 
-
-
-
 // ===========================================================================
 // File:     init_parser.cc
 // Author:   Stephan Endrass
 // Address:  endrass@mi.uni-erlangen.de
 // Date:     3.2.95
 // ============================================================================
+
+/**************************************************************************
+ Projectteam 'Qualifizierung und Weiterentwicklung eines Software-Pakets
+ zur Darstellung reell-algebraischer Kurven und Flächen'
+ from Fachhochschule Frankfurt am Main (University of Applied Sciences)
+ 
+ Authors: Marcus Scherer, Jonas Heil
+ Changes: add support for saving color ps,eps and pdf
+ Date: Wintersemester 2009/2010
+ Last changed: 2010/01/14
+ 
+ **************************************************************************/
 
 // ----------------------------------------------------------------------------
 //  Function prototypes

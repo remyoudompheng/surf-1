@@ -25,12 +25,13 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include <iostream.h>
+#include <iostream>
 
 #include "ColorSelectionButton.h"
 
 // #define DEBUG
 #include "debug.h"
+using namespace std;
 
 void ColorSelectionButton::disconnect ()
 {

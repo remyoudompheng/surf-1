@@ -23,15 +23,14 @@
  */
 
 
-#include <iostream.h>
-#include <iostream.h>
+#include <iostream>
 #include <assert.h>
 #include <stdlib.h>
 
 #include <string.h>
 #include "SymbolTable.h"
 #include "addDefaultSymbols.h"
-
+using namespace std;
 
 inline char *copy (const char *str)
 {

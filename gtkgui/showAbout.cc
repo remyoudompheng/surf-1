@@ -24,12 +24,13 @@
 
 
 #include <stdio.h>
-#include <iostream.h>
+#include <iostream>
 
 #include <gtk/gtk.h>
 
 #include "showAbout.h"
 #include "welcomeMessage.h"
+using namespace std;
 
 static GtkWidget *about=0;
 static GdkPixmap *pixmap=0;

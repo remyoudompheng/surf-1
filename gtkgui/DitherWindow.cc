@@ -23,10 +23,11 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 #include "DitherWindow.h"
 #include "RadioButtonBuilder.h"
 #include "TableBuilder.h"
+using namespace std;
 
 void DitherWindow::toggled_dither_method (GtkWidget *w, gpointer data)
 {

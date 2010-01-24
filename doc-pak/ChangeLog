@@ -1,0 +1,64 @@
+1.0.4 -> 1.0.5:
+===============
+
+    * Fixed some small compilation problems with gcc4.
+	
+1.0.3 -> 1.0.4:
+===============
+
+    * Fixed some small compilation problems.
+
+
+1.0.2 -> 1.0.3:
+===============
+
+    * fixed bug with newer gcc and implicit cast from void (*)()
+      to void*
+
+    * introduced "--with-gmp-prefix" option in configure script
+
+    * added "-LANG:std" switch for IRIX compiler in configure.in
+
+    * fixed bug that occured when drawing multiple curves
+
+
+1.0.1 -> 1.0.2:
+===============
+
+    * command line option --auto-resize to automatically resize the
+      image windows to the size of the image
+      
+    * user now can choose between a progress dialog
+      (option: --progress-dialog) and a status bar (default)
+
+    * fixed bug in Anderson-Bjoerck root finder
+
+    * fixed bug w/32 bit displays in mycolor.cc (closes #107389)
+
+    * updated configure.in due to some problems with gmp3
+
+    * fixed potential buffer overflow bug in lexfunc.cc
+
+    * updated example scripts (removed obsolete commands)
+
+
+1.0.0 -> 1.0.1:
+===============
+
+    * fixed documentation bug (sgml, man page, usage information):
+      "--no-gui" option was called "--nogui"
+
+    * fixed bug with 8 bit displays on xfree86 4.0
+
+    * added debian directory to CVS
+
+    * made dither window work with 8 bit displays
+	
+    * documentation updated (docs/manual.*)
+
+    * copyright text in startup message and about dialog fixed
+
+    * fix for IRIX compiler in gtkgui/IlluminationWindow.cc
+
+    * examples directory "useless, but nice!" renamed to
+      "useless_but_nice"

@@ -24,7 +24,7 @@
 
 
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 #include <stdio.h>
 #include <string.h>
 
@@ -33,6 +33,7 @@
 
 #include "mystrdup.h"
 #include "Misc.h"
+using namespace std;
 
 static GList *listeners = 0;
 static GList *documents = 0;

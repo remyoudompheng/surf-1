@@ -32,11 +32,12 @@
 /* Date:     14.8.94                                                         */
 /* ------------------------------------------------------------------------- */
 
-#include <iostream.h>
+#include <iostream>
 #include <stdlib.h>
 
 #include "mymemory.h"
 
+using namespace std;
 char    *new_char ( int n )
 {
 	if (n<=0) {

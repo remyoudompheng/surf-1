@@ -23,11 +23,12 @@
  */
 
 
-#include <iostream.h>
+#include <iostream>
 
 #include "ProgressDialog.h"
 #include "Thread.h"
 #include "Options.h"
+using namespace std;
 
 void ProgressDialog::tryToStop (GtkWidget *widget, gpointer data)
 {

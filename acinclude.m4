@@ -197,7 +197,7 @@ dnl
 dnl If the compiler supports function templates with non-type parameters,
 dnl define HAVE_FUNCTION_NONTYPE_PARAMETERS.
 dnl
-dnl @version $Id$
+dnl @version $Id: /surf-1/acinclude.m4 22703 2006-03-04T21:20:19.270670Z ralf  $
 dnl @author Luc Maisonobe
 dnl
 AC_DEFUN(AC_CXX_FUNCTION_NONTYPE_PARAMETERS,

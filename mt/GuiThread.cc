@@ -27,7 +27,7 @@
 
 #include <unistd.h>
 #include <assert.h>
-#include <iostream.h>
+#include <iostream>
 #include <fcntl.h>
 #include <stdio.h>
 #include <errno.h>
@@ -42,6 +42,7 @@
 
 #define MAXFUNC 1024
 
+using namespace std;
 
 static Mutex tryingToWakeupMutex;
 static int tryingToWakeup=0; 
