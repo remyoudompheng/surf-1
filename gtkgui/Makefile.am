@@ -28,7 +28,6 @@ libsurf_gtkgui_a_SOURCES = mycolor.cc mycolor.h			\
 	WidgetReadWriter.cc WidgetReadWriter.h			\
 	DitherWindow.cc DitherWindow.h				\
 	ClipWindow.cc ClipWindow.h				\
-	Document.cc Document.h					\
 	TableBuilder.h RadioButtonBuilder.h			\
 	RGBToStandard.cc RGBToStandard.h			\
 	SaveImageDialog.cc SaveImageDialog.h			\

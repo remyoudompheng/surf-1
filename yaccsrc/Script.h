@@ -51,7 +51,6 @@ public:
 	static void init();
 	static void deinit();
 
-	static char *readFile (const char *name);
 	static void executeScriptFromFile (const char *name);
 
 	static TSDrawingArea *getDisplay();

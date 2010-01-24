@@ -58,6 +58,7 @@ private:
 
 	
 public:
+	static char *readFile (const char *name);
 	static Document *loadDocument (const char *name);
 	static Document *getDocumentWithName (const char *name);
 	

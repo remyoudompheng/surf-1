@@ -27,12 +27,16 @@
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 #include "Document.h"
-#include "Script.h"
 
 #include "mystrdup.h"
 #include "Misc.h"
+
+#include "debug.h"
+
 using namespace std;
 
 static GList *listeners = 0;
@@ -149,10 +153,55 @@ void Document::setContents (const char *contents)
 	changed = true;
 }
 
+
+char *Document::readFile (const char *name)
+{
+	BEGIN("readFile");
+	
+
+	struct stat buf;
+	if (stat(name, &buf) != 0) {
+		ostrstream ostr;
+		ostr << "Cant stat file " << name << "" << " (" << strerror(errno) << ")" << ends;
+		Misc::alert (ostr);
+		return 0;
+	}
+
+	unsigned int size = buf.st_size;
+	FILE *f=fopen(name, "r");
+	if (f==0) {
+		ostrstream ostr;
+		ostr << "Cant open file " << name << "" << " (" << strerror(errno) << ")";
+		Misc::alert (ostr);
+		return 0;
+	}
+	
+	char *str = new char [size+1];
+	if (fread(str, 1, size, f) != size) {
+		ostrstream ostr;
+		ostr << "Could not read from file " << name << "" << " (" << strerror(errno) << ")";
+		Misc::alert(ostr);
+		delete str;
+		fclose(f);
+		return 0;
+	}
+
+	fclose(f);
+	str[size]=0;
+	if (strlen(str) < size) {
+		delete str;
+		ostrstream ostr;
+		ostr << "\"" << name << "\" contains binary data.";
+		Misc::alert(ostr);
+		return 0;
+	}
+	return str;
+}
+
 Document *Document::loadDocument (const char *name)
 {
 	assert(name);
-	char *contents = Script::readFile (name);
+	char *contents = readFile (name);
 	
 	if (!contents)
 		return 0;

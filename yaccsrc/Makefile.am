@@ -18,7 +18,7 @@ libsurf_parser_a_SOURCES =	bezierarith.cc bezierarith.h	\
 			polyyacc.y polylex.l polylexyacc.h degree.h \
 			lexfunc.cc			\
 			SymbolTable.cc SymbolTable.h	\
-			Script.cc Script.h		\
+			Script.cc Script.h 		\
 			ExecuteScriptStruct.cc ExecuteScriptStruct.h \
 			addDefaultSymbols.cc addDefaultSymbols.h
 

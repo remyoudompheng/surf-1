@@ -37,16 +37,15 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include <errno.h>
 
 #include <iostream>
 
-#include <sys/stat.h>
 #include <unistd.h>
 
 #include "FileWriter.h"
 #include "TreePolynom.h"
 #include "Misc.h"
+#include "Document.h"
 #include "Script.h"
 #include "polylexyacc.h"
 #include "gui_config.h"
@@ -254,56 +253,11 @@ int Script::internalExecuteScript (const char *str, bool runCommands)
 	return parse_result;
 }
 
-
-char *Script::readFile (const char *name)
-{
-	BEGIN("readFile");
-	
-
-	struct stat buf;
-	if (stat(name, &buf) != 0) {
-		ostrstream ostr;
-		ostr << "Cant stat file " << name << "" << " (" << strerror(errno) << ")" << ends;
-		Misc::alert (ostr);
-		return 0;
-	}
-
-	unsigned int size = buf.st_size;
-	FILE *f=fopen(name, "r");
-	if (f==0) {
-		ostrstream ostr;
-		ostr << "Cant open file " << name << "" << " (" << strerror(errno) << ")";
-		Misc::alert (ostr);
-		return 0;
-	}
-	
-	char *str = new char [size+1];
-	if (fread(str, 1, size, f) != size) {
-		ostrstream ostr;
-		ostr << "Could not read from file " << name << "" << " (" << strerror(errno) << ")";
-		Misc::alert(ostr);
-		delete str;
-		fclose(f);
-		return 0;
-	}
-
-	fclose(f);
-	str[size]=0;
-	if (strlen(str) < size) {
-		delete str;
-		ostrstream ostr;
-		ostr << "\"" << name << "\" contains binary data.";
-		Misc::alert(ostr);
-		return 0;
-	}
-	return str;
-}
-
 void Script::executeScriptFromFile (const char *name)
 {
 	BEGIN("Script::executeScriptFromFile");
 	Thread::setDoing ("executing script...");
-	const char *str = readFile(name);
+	const char *str = Document::readFile(name);
 	display=0;
 	beforeScriptExecution();
 	internalExecuteScript(str);
