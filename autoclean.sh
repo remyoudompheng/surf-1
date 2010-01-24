@@ -10,5 +10,5 @@ rm -f Makefile.in */Makefile.in
 rm -f aclocal.m4
 rm -f config.log config.cache
 (cd yaccsrc && rm -f polyyacc.c polyyacc.h polylex.c)
-rm -f yaccsrc/addDefaultSymbols.cc
+# rm -f yaccsrc/addDefaultSymbols.cc
 find . -name \*~ -exec rm \{\} \;
