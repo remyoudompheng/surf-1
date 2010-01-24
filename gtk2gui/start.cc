@@ -20,22 +20,34 @@
  */
 
 using namespace std;
+#include <iostream>
 
 #include <gtkmm.h>
 #include "UIDefinition.h"
+#include "MainWindow.h"
 
 int
 main (int argc, char *argv[])
 {
   Gtk::Main kit(argc, argv);
   Glib::RefPtr<Gtk::Builder> refGlade = Gtk::Builder::create();
-  refGlade->add_from_string(gtk2gui_xml);
+  try {
+    refGlade->add_from_string(gtk2gui_xml);
+  }
+  catch(const Gtk::BuilderError& ex)
+    {
+      std::cerr << "BuilderError: " << ex.what() << std::endl;
+      return 1;
+    }
 
-  Gtk::Window* window;
-  refGlade->get_widget("window_main", window);
-  window->show_all();
+  MainWindow *main_win = 0;
+  refGlade->get_widget_derived("window_main", main_win);
+  if (main_win) {
+    main_win->show_all();
+    kit.run(*main_win);
+  }
 
-  kit.run();
-
+  delete main_win;
+  
   return 0;
 }
