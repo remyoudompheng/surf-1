@@ -14,3 +14,8 @@ automake -a --foreign
 
 echo "running ./configure $*"
 ./configure $*
+
+cd yaccsrc
+make polyyacc.c
+make polylex.c
+
